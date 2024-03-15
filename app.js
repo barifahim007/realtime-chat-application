@@ -3,7 +3,13 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cookieparser = require("cookie-parser");
 const path = require("path");
-
+const {
+  errorHandler,
+  notFoundHandler,
+} = require("./middleware/common/errorHandler");
+const loginRouter = require("./router/logingRouter");
+const userRouter = require("./router/userRouter");
+const inboxRouter = require("./router/inboxRouter");
 //call the express
 const app = express();
 dotenv.config();
@@ -28,6 +34,15 @@ mongoose
 
 //   set ejs view engine
 app.set("view engine", "ejs");
+
+// router setup
+app.use("/", loginRouter);
+app.use("/users", userRouter);
+app.use("/inbox", inboxRouter);
+
+// error handler
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 // listen the port
 app.listen(process.env.PORT, () => {

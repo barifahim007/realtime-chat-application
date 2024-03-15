@@ -4,6 +4,7 @@
 
             # express
             # nodemon
+            # cors
             # dotenv
             # ejs template engine
             # mongoose
